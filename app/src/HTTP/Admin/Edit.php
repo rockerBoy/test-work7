@@ -35,13 +35,23 @@ class Edit implements RequestHandlerInterface
             $record = [
                 'username' => $body['username'],
                 'email' => $body['email'],
-                'description' => $body['description']
+                'description' => $body['description'],
+                'status' => (int)!empty($body['status'])
             ];
-            if (!empty($body['finished_at'])) {
-                $record['finished_at'] = date("Y-m-d H:i:s");
-            } else {
-                $record['finished_at'] = null;
+            $task = $this->connection->fetchAssoc('SELECT * FROM tasks WHERE id = :id', [
+                'id' => $request->getAttribute('id')
+            ]);
+            $edited = false;
+            $checks = ['username', 'email', 'description'];
+            foreach ($checks as $check) {
+                if ($task[$check] !== $body[$check]) {
+                    $edited = true;
+                }
             }
+            if ($edited) {
+                $record['is_edit'] = true;
+            }
+
             $this->connection->update(
                 'tasks',
                 $record,

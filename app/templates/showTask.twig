@@ -18,6 +18,7 @@
                 <th>email</th>
                 <th>текст задачи</th>
                 <th>статус</th>
+                <th>Изменена</th>
                 {% if username %}
                     <th>Администрирование</th>
                 {% endif %}
@@ -29,7 +30,19 @@
                     <td>{{ task.username }}</td>
                     <td>{{ task.email }}</td>
                     <td>{{ task.description | nl2br }}</td>
-                    <td>{% if task.finished_at %}отредактировано администратором{% endif %}</td>
+                    <td>{% if task.status %}
+                            Завершено
+                        {% else %}
+                            В процессе
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if task.is_edit %}
+                            Да
+                        {% else %}
+                            Нет
+                        {% endif %}
+                    </td>
                     {% if username %}
                         <td><a href="/edit/{{ task.id }}">Редактировать</a></td>
                     {% endif %}
