@@ -1,0 +1,26 @@
+{
+    "name": "app/app",
+    "type": "project",
+    "license": "GPL-3.0",
+    "authors": [
+        {
+            "name": "Evgeniy Kuvshinov",
+            "email": "smpl@itmywork.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "cekta/routing-nikic": "@dev",
+        "cekta/http-server": "@dev",
+        "zendframework/zend-diactoros": "^2.1",
+        "cekta/di": "^0.2.0",
+        "vlucas/phpdotenv": "^3.6",
+        "doctrine/migrations": "^2.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    }
+}
