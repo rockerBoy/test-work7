@@ -9,7 +9,6 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Twig\Environment;
 use Zend\Diactoros\Response\HtmlResponse;
-use Zend\Diactoros\Response\JsonResponse;
 
 class ShowTask implements RequestHandlerInterface
 {
@@ -30,10 +29,19 @@ class ShowTask implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
+        $body = $request->getQueryParams();
         session_start();
-
+        $page = $body['page'] ?? 1;
+        $inPage = 3;
+        $count = $this->connection->fetchColumn('SELECT count(*) from tasks');
+        $from = $inPage * ($page - 1);
         return new HtmlResponse($this->twig->render('ShowTask.twig', [
-            'tasks' => $this->connection->fetchAll('SELECT * FROM tasks '),
+            'tasks' => $this->connection->fetchAll("SELECT * FROM tasks LIMIT $from, $inPage"),
+            'pager' => [
+                'current' => $page,
+                'hasNext' => $count > $from + $inPage,
+                'hasPrev' => $page > 1
+            ],
             'username' => $_SESSION['username'] ?? null
         ]));
     }

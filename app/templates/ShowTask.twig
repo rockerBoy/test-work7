@@ -25,4 +25,13 @@
         {% endfor %}
         </tbody>
     </table>
+    {% if pager.hasNext or pager.hasPrev %}
+        {% if pager.hasPrev %}
+            <a href="/?page={{ pager.current - 1 }}">Назад</a>
+        {% endif %}
+        {{ pager.current }}
+        {% if pager.hasNext %}
+            <a href="/?page={{ pager.current + 1 }}">Вперед</a>
+        {% endif %}
+    {% endif %}
 {% endblock %}
