@@ -35,7 +35,7 @@ class ShowTask implements RequestHandlerInterface
         $inPage = 3;
         $count = $this->connection->fetchColumn('SELECT count(*) from tasks');
         $from = $inPage * ($page - 1);
-        return new HtmlResponse($this->twig->render('ShowTask.twig', [
+        return new HtmlResponse($this->twig->render('showTask.twig', [
             'tasks' => $this->connection->fetchAll("SELECT * FROM tasks LIMIT $from, $inPage"),
             'pager' => [
                 'current' => $page,

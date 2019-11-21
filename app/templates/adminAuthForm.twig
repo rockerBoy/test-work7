@@ -1,14 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Вход админа</title>
-</head>
-<body>
-<form method="post">
-    <input type="text" name="username">
-    <input type="text" name="password">
-    <input type="submit">
-</form>
-</body>
-</html>
+{% extends 'index.twig' %}
+{% block body %}
+    <form method="post">
+        <input type="text" name="username">
+        <input type="text" name="password">
+        <input type="submit">
+    </form>
+{% endblock %}

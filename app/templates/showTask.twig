@@ -10,9 +10,13 @@
     <table>
         <thead>
         <tr>
-            <th>Имя</th>
+            <th>имя пользователя</th>
             <th>email</th>
-            <th>description</th>
+            <th>текст задачи</th>
+            <th>статус</th>
+            {% if username %}
+                <th>Администрирование</th>
+            {% endif %}
         </tr>
         </thead>
         <tbody>
@@ -20,7 +24,11 @@
             <tr>
                 <td>{{ task.username }}</td>
                 <td>{{ task.email }}</td>
-                <td>{{ task.description }}</td>
+                <td>{{ task.description | nl2br}}</td>
+                <td>{% if task.finished_at %}отредактировано администратором{% endif %}</td>
+                {% if username %}
+                    <td><a href="/edit/{{ task.id }}">Редактировать</a></td>
+                {% endif %}
             </tr>
         {% endfor %}
         </tbody>
