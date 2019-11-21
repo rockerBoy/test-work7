@@ -1,0 +1,22 @@
+{% extends 'index.twig' %}
+{% block title %}Просмотр задач{% endblock %}
+{% block body %}
+    <table>
+        <thead>
+        <tr>
+            <th>Имя</th>
+            <th>email</th>
+            <th>description</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for task in tasks %}
+            <tr>
+                <td>{{ task.username }}</td>
+                <td>{{ task.email }}</td>
+                <td>{{ task.description }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

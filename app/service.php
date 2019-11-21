@@ -21,6 +21,8 @@ use Symfony\Component\Console\Helper\FormatterHelper;
 use Symfony\Component\Console\Helper\HelperSet;
 use Symfony\Component\Console\Helper\ProcessHelper;
 use Symfony\Component\Console\Helper\QuestionHelper;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
 
 return [
     ContainerInterface::class => function (ContainerInterface $c) {
@@ -74,6 +76,12 @@ return [
                 $container->get(Connection::class),
                 $container->get(Configuration::class)
             ),
+        ]);
+    },
+    Environment::class => function () {
+        $loader = new FilesystemLoader(__DIR__ . '/templates');
+        return new Environment($loader, [
+//            'cache' => '/path/to/compilation_cache',
         ]);
     }
 ];
