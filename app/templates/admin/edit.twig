@@ -1,0 +1,31 @@
+{% extends 'index.twig' %}
+{% block body %}
+    <div class="container">
+        <form method="post">
+            <h1 class="text-center">Редактирование задачи администратором</h1>
+            <div class="form-group">
+                <input type="text" name="username" value="{{ task.username }}" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <input type="email" name="email" value="{{ task.email }}" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <textarea name="description" class="form-control" rows="10">{{ task.description }}</textarea>
+            </div>
+            <div class="form-group">
+                <input
+                        type="checkbox"
+                        name="finished_at"
+                        value="true"
+                        {% if task.finished_at %}checked{% endif %}
+                        class="form-control"
+                >
+            </div>
+            <div class="form-group">
+                <div class="col text-center">
+                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

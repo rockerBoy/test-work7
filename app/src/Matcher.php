@@ -4,13 +4,13 @@ declare(strict_types=1);
 namespace App;
 
 use App\HTTP\AddTask;
-use App\HTTP\AddTaskForm;
-use App\HTTP\AdminAuth;
-use App\HTTP\AdminAuthForm;
-use App\HTTP\AdminEdit;
-use App\HTTP\Logout;
+use App\HTTP\Admin\Auth;
+use App\HTTP\Admin\Edit;
+use App\HTTP\Admin\Logout;
 use App\HTTP\ShowTask;
 use App\HTTP\NotFound;
+use App\Middleware\MustBeAuth;
+use App\Middleware\Session;
 use Cekta\Routing\Nikic\DispatcherBuilder;
 use Cekta\Routing\Nikic\Handler;
 use Cekta\Routing\Nikic\ProviderHandler;
@@ -23,14 +23,14 @@ class Matcher extends \Cekta\Routing\Nikic\Matcher
         ProviderMiddleware $providerMiddleware
     ) {
         $builder = new DispatcherBuilder();
-        $builder->get('/', ShowTask::class);
-        $builder->get('/logout', Logout::class);
-        $builder->get('/auth', AdminAuthForm::class);
-        $builder->get('/add', AddTaskForm::class);
-        $builder->get('/edit/{id:\d+}', AdminEdit::class);
-        $builder->post('/auth', AdminAuth::class);
-        $builder->post('/add', AddTask::class);
-        $builder->post('/edit/{id:\d+}', AdminEdit::class);
+        $builder->get('/', ShowTask::class, Session::class);
+        $builder->get('/logout', Logout::class, Session::class, MustBeAuth::class);
+        $builder->get('/auth', Auth::class, Session::class);
+        $builder->get('/add', AddTask::class, Session::class);
+        $builder->get('/edit/{id:\d+}', Edit::class, Session::class, MustBeAuth::class);
+        $builder->post('/auth', Auth::class, Session::class);
+        $builder->post('/add', AddTask::class, Session::class);
+        $builder->post('/edit/{id:\d+}', Edit::class, Session::class, MustBeAuth::class);
         parent::__construct(
             new Handler(NotFound::class),
             $builder->build(),

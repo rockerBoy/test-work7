@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\HTTP;
+namespace App\HTTP\Admin;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -12,7 +12,6 @@ class Logout implements RequestHandlerInterface
 {
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        session_start();
         session_destroy();
         return new RedirectResponse('/');
     }

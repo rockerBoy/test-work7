@@ -1,45 +1,52 @@
 {% extends 'index.twig' %}
 {% block title %}Просмотр задач{% endblock %}
 {% block body %}
-    <a href="/auth">Вход админа</a>
-    {% if username %}
-        <h1>{{ username }}</h1>
-        <a href="/logout">Выход</a>
-    {% endif %}
-    <a href="/add">Добавить задачу</a>
-    <table>
-        <thead>
-        <tr>
-            <th>имя пользователя</th>
-            <th>email</th>
-            <th>текст задачи</th>
-            <th>статус</th>
+    <div class="container">
+        <div class="col text-center">
+            <a href="/add">Добавить задачу</a>
             {% if username %}
-                <th>Администрирование</th>
+                <h1>{{ username }}</h1>
+                <a href="/logout">Выход</a>
+            {% else %}
+                <a href="/auth">Вход админа</a>
             {% endif %}
-        </tr>
-        </thead>
-        <tbody>
-        {% for task in tasks %}
+        </div>
+        <table class="table">
+            <thead>
             <tr>
-                <td>{{ task.username }}</td>
-                <td>{{ task.email }}</td>
-                <td>{{ task.description | nl2br}}</td>
-                <td>{% if task.finished_at %}отредактировано администратором{% endif %}</td>
+                <th>имя пользователя</th>
+                <th>email</th>
+                <th>текст задачи</th>
+                <th>статус</th>
                 {% if username %}
-                    <td><a href="/edit/{{ task.id }}">Редактировать</a></td>
+                    <th>Администрирование</th>
                 {% endif %}
             </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    {% if pager.hasNext or pager.hasPrev %}
-        {% if pager.hasPrev %}
-            <a href="/?page={{ pager.current - 1 }}">Назад</a>
-        {% endif %}
-        {{ pager.current }}
-        {% if pager.hasNext %}
-            <a href="/?page={{ pager.current + 1 }}">Вперед</a>
-        {% endif %}
-    {% endif %}
+            </thead>
+            <tbody>
+            {% for task in tasks %}
+                <tr>
+                    <td>{{ task.username }}</td>
+                    <td>{{ task.email }}</td>
+                    <td>{{ task.description | nl2br }}</td>
+                    <td>{% if task.finished_at %}отредактировано администратором{% endif %}</td>
+                    {% if username %}
+                        <td><a href="/edit/{{ task.id }}">Редактировать</a></td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="col text-center">
+            {% if pager.hasNext or pager.hasPrev %}
+                {% if pager.hasPrev %}
+                    <a href="/?page={{ pager.current - 1 }}">Назад</a>
+                {% endif %}
+                {{ pager.current }}
+                {% if pager.hasNext %}
+                    <a href="/?page={{ pager.current + 1 }}">Вперед</a>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
 {% endblock %}

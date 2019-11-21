@@ -30,7 +30,6 @@ class ShowTask implements RequestHandlerInterface
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $body = $request->getQueryParams();
-        session_start();
         $page = $body['page'] ?? 1;
         $inPage = 3;
         $count = $this->connection->fetchColumn('SELECT count(*) from tasks');
@@ -42,7 +41,7 @@ class ShowTask implements RequestHandlerInterface
                 'hasNext' => $count > $from + $inPage,
                 'hasPrev' => $page > 1
             ],
-            'username' => $_SESSION['username'] ?? null
+            'username' => $request->getAttribute('username')
         ]));
     }
 }

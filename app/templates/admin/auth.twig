@@ -1,0 +1,19 @@
+{% extends 'index.twig' %}
+{% block body %}
+    <div class="container">
+        <form method="post">
+            <h1 class="text-center">Вход администратора</h1>
+            <div class="form-group">
+                <input type="text" name="username" class="form-control" placeholder="username" required>
+            </div>
+            <div class="form-group">
+                <input type="password" name="password" class="form-control" placeholder="password" required>
+                <div class="form-group">
+                    <div class="col text-center">
+                        <button type="submit" class="btn btn-primary mb-2">Войти</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

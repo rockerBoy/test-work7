@@ -8,6 +8,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Twig\Environment;
+use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\RedirectResponse;
 
 class AddTask implements RequestHandlerInterface
@@ -29,12 +30,15 @@ class AddTask implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $body = $request->getParsedBody();
-        $this->connection->insert('tasks', [
-            'username' => $body['username'],
-            'email' => $body['email'],
-            'description' => $body['description']
-        ]);
-        return new RedirectResponse('/');
+        if ($request->getMethod() === 'POST') {
+            $body = $request->getParsedBody();
+            $this->connection->insert('tasks', [
+                'username' => $body['username'],
+                'email' => $body['email'],
+                'description' => $body['description']
+            ]);
+            return new RedirectResponse('/');
+        }
+        return new HtmlResponse($this->twig->render('addTask.twig'));
     }
 }

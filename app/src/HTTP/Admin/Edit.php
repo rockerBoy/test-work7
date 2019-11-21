@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\HTTP;
+namespace App\HTTP\Admin;
 
 use Doctrine\DBAL\Connection;
 use Psr\Http\Message\ResponseInterface;
@@ -11,7 +11,7 @@ use Twig\Environment;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\RedirectResponse;
 
-class AdminEdit implements RequestHandlerInterface
+class Edit implements RequestHandlerInterface
 {
     /**
      * @var Environment
@@ -30,10 +30,6 @@ class AdminEdit implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        session_start();
-        if (empty($_SESSION['username'])) {
-            return new RedirectResponse('/');
-        }
         if ($request->getMethod() === 'POST') {
             $body = $request->getParsedBody();
             $record = [
@@ -52,7 +48,7 @@ class AdminEdit implements RequestHandlerInterface
                 ['id' => $request->getAttribute('id')]);
             return new RedirectResponse('/');
         }
-        return new HtmlResponse($this->twig->render('adminEdit.twig', [
+        return new HtmlResponse($this->twig->render('admin/edit.twig', [
             'task' => $this->connection->fetchAssoc('SELECT * FROM tasks WHERE id = :id', [
                 'id' => $request->getAttribute('id')
             ])
