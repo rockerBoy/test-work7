@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\HTTP\AddTask;
+use App\HTTP\AddTaskForm;
 use App\HTTP\AdminAuth;
 use App\HTTP\AdminAuthForm;
 use App\HTTP\Logout;
@@ -23,7 +25,9 @@ class Matcher extends \Cekta\Routing\Nikic\Matcher
         $builder->get('/', ShowTask::class);
         $builder->get('/logout', Logout::class);
         $builder->get('/auth', AdminAuthForm::class);
+        $builder->get('/add', AddTaskForm::class);
         $builder->post('/auth', AdminAuth::class);
+        $builder->post('/add', AddTask::class);
         parent::__construct(
             new Handler(NotFound::class),
             $builder->build(),
