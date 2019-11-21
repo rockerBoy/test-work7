@@ -14,16 +14,20 @@ final class Version20191121101012 extends AbstractMigration
 {
     public function getDescription() : string
     {
-        return '';
+        return 'Создадим таблицу с задачами';
     }
 
     public function up(Schema $schema) : void
     {
         $table = $schema->createTable('tasks');
-        $table->addColumn("id", "integer", ["unsigned" => true]);
+        $table->addColumn("id", "integer", [
+            "unsigned" => true,
+            'autoincrement' => true
+        ]);
         $table->addColumn("username", "string", ["length" => 45]);
         $table->addColumn("email", "string", ["length" => 45]);
-        $table->addColumn("description", "datetime");
+        $table->addColumn("description", "text");
+        $table->addColumn("finished_at", "datetime");
         $table->setPrimaryKey(['id']);
     }
 

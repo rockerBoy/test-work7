@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\HTTP\AdminAuth;
+use App\HTTP\AdminAuthForm;
+use App\HTTP\Logout;
 use App\HTTP\ShowTask;
 use App\HTTP\NotFound;
 use Cekta\Routing\Nikic\DispatcherBuilder;
@@ -18,6 +21,9 @@ class Matcher extends \Cekta\Routing\Nikic\Matcher
     ) {
         $builder = new DispatcherBuilder();
         $builder->get('/', ShowTask::class);
+        $builder->get('/logout', Logout::class);
+        $builder->get('/auth', AdminAuthForm::class);
+        $builder->post('/auth', AdminAuth::class);
         parent::__construct(
             new Handler(NotFound::class),
             $builder->build(),

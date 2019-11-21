@@ -1,6 +1,11 @@
 {% extends 'index.twig' %}
 {% block title %}Просмотр задач{% endblock %}
 {% block body %}
+    <a href="/auth">Вход админа</a>
+    {% if username %}
+        <h1>{{ username }}</h1>
+        <a href="/logout">Выход</a>
+    {% endif %}
     <table>
         <thead>
         <tr>
