@@ -3,14 +3,15 @@
 {% block body %}
     <div class="container">
         <div class="col text-center">
-            <a href="/add">Добавить задачу</a>
+            <a href="/add" class="btn btn-primary">Добавить задачу</a>
             {% if username %}
                 <h1>{{ username }}</h1>
-                <a href="/logout">Выход</a>
+                <a href="/logout" class="btn btn-primary">Выход</a>
             {% else %}
-                <a href="/auth">Вход админа</a>
+                <a href="/auth" class="btn btn-primary">Вход админа</a>
             {% endif %}
         </div>
+        {% if tasks %}
         <table class="table">
             <thead>
             <tr>
@@ -67,5 +68,8 @@
                 {% endif %}
             {% endif %}
         </div>
+        {% else %}
+            <h2>Задач нету</h2>
+        {% endif %}
     </div>
 {% endblock %}

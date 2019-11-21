@@ -1,6 +1,9 @@
 {% extends 'index.twig' %}
 {% block body %}
     <div class="container">
+        {% if showError %}
+            <div class="p-3 mb-2 bg-danger text-white">Должна вывестись ошибка о неправильных реквизитах доступа</div>
+        {% endif %}
         <form method="post">
             <h1 class="text-center">Вход администратора</h1>
             <div class="form-group">

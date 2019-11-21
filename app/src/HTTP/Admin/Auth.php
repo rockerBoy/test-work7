@@ -35,6 +35,8 @@ class Auth implements RequestHandlerInterface
                 return new RedirectResponse('/');
             }
         }
-        return new HtmlResponse($this->twig->render('admin/auth.twig'));
+        return new HtmlResponse($this->twig->render('admin/auth.twig', [
+            'showError' => $request->getMethod() === 'POST'
+        ]));
     }
 }

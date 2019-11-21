@@ -26,9 +26,7 @@ FROM php:7.2-fpm as production
 COPY --from=builder /app /app
 COPY production/php-fpm.conf /usr/local/etc/
 COPY production/php.ini /usr/local/etc/php/
-RUN apt-get update \
-    && apt-get install -y libpq-dev \
-    && docker-php-ext-install pdo_pgsql \
+RUN docker-php-ext-install pdo_mysql \
     && ln -s /app/cli.php /usr/local/bin/app
 WORKDIR /app/public
 
