@@ -14,10 +14,16 @@
         <table class="table">
             <thead>
             <tr>
-                <th>имя пользователя</th>
-                <th>email</th>
+                <th>
+                    <a href="{{ sorts.username }}">имя
+                        пользователя</a></th>
+                <th>
+                    <a href="{{ sorts.email }}">email</a>
+                </th>
                 <th>текст задачи</th>
-                <th>статус</th>
+                <th>
+                    <a href="{{ sorts.status }}">статус</a>
+                </th>
                 <th>Изменена</th>
                 {% if username %}
                     <th>Администрирование</th>
@@ -53,11 +59,11 @@
         <div class="col text-center">
             {% if pager.hasNext or pager.hasPrev %}
                 {% if pager.hasPrev %}
-                    <a href="/?page={{ pager.current - 1 }}">Назад</a>
+                    <a href="/?page={{ pager.current - 1 }}&sort={{ sort }}&order={{ order }}">Назад</a>
                 {% endif %}
                 {{ pager.current }}
                 {% if pager.hasNext %}
-                    <a href="/?page={{ pager.current + 1 }}">Вперед</a>
+                    <a href="/?page={{ pager.current + 1 }}&sort={{ sort }}&order={{ order }}">Вперед</a>
                 {% endif %}
             {% endif %}
         </div>
