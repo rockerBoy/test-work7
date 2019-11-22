@@ -31,4 +31,7 @@ RUN docker-php-ext-install pdo_mysql \
 WORKDIR /app/public
 
 FROM production as migration
-CMD ["app", "migrations:migrate", "-n", "--allow-no-migration"]
+RUN apt-get update \
+    && apt-get install -y wait-for-it \
+    && rm -rf /var/lib/apt/lists/*
+CMD ["wait-for-it", "db:3306", "-t", "60", "--", "app", "migrations:migrate", "-n", "--allow-no-migration"]

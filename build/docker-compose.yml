@@ -5,16 +5,16 @@ services:
       context: ../app
       target: production
     # todo set image
-    #image: cekta/demo:app
+    image: smpl/tw7:app
   nginx:
     build:
       context: ../nginx
       target: production
     # todo set image
-    #image: cekta/demo:nginx
+    image: smpl/tw7:nginx
   migration:
     build:
       context: ../app
       target: migration
     # todo set image
-    #image: cekta/demo:migration
+    image: smpl/tw7:migration
